@@ -1,0 +1,60 @@
+{
+	"blacklist" : {
+		"user_agents" : "Mozilla\\/4.0\\+\\(compatible;\\+MSIE\\+6\\.0;\\+Windows\\+NT\\+5.1\\)",
+		"uris" : "\/(weevely)|(wso)|(b374)|(c99)|(r57)\\.php",
+		"parameters" : "(IEX)|(cmd)|(i[fp]config)|(passthru)|(exec)|(eval)|(shell_exec)|(assert)|(str_rot13)|(system)|(phpinfo)|(base64_decode)|(chmod)|(mkdir)|(fopen)|(fclose)|(readfile)",
+		"post_directories" : "\/uploads?|images|css\/",
+		"post_filetypes" : ".jpe?g|png|gif|bmp|ico|pdf|txt|xml[\b\\?]"
+	},
+	"whitelist" : {
+		"user_agents" : [],
+		"uris" : []
+	},
+	"coas" : {
+		"preparation" : [
+			"Patch asset vulnerabilities",
+			"Perform routine inspections of controls/weapons",
+			"Disable script execution in directories where it is not required",
+			"Disable the use of exec, shell_exec, eval, and assert via php.ini",
+			"Verify that web applications do not run with excessive privileges on the server",
+			"Ensure that servers are logging to a central location",
+			"Deploy a WAF",
+			"Use AppArmor, SELinux, or other mitigations where appropriate"
+		],
+		"identification" : [
+			"Monitor for unusual error messages in logs",
+			"Monitor for unusual web traffic patterns",
+			"Monitor for unexpected changes in websites’ document roots",
+			"Monitor for IPS/IDS alerts",
+			"Monitor for antivirus alerts",
+			"Investigate and clear ALL alerts associated with the impacted assets"
+		],
+		"containment" : [
+			"Inventory (enumerate & assess)",
+			"Detect | Deny | Disrupt | Degrade | Deceive | Destroy",
+			"Observe -> Orient -> Decide -> Act",
+			"Issue perimeter enforcement for known threat actor locations"
+		],
+		"eradication" : [
+			"Close the attack vector",
+			"Patch asset vulnerabilities",
+			"Scan web servers for other instances of web shells",
+			"Determine how the web shell was placed on the system",
+			"Reset any potentially compromised passwords",
+			"Review logs of any system the attacker may have accessed",
+			"Scan affected systems with antivirus/endpoint software"
+		],
+		"recovery" : [
+			"Restore to the RPO within the RTO",
+			"Address collateral damage",
+			"Determine the root cause of the breach",
+			"Resolve any related security incidents"
+		]
+	},
+	"ofis" : {
+		"generic" : [
+			"Perform routine cyber hygiene due diligence",
+			"Engage external cybersecurity-as-a-service providers and response professionals"
+		]
+	}
+}
