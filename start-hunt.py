@@ -69,8 +69,9 @@ def main(argv):
 
 	hunt.start()
 	hunt.displayResults()
-	hunt.displayGenericCOAs()
-	hunt.displaySpecificCOAs()
+	# hunt.displaySpecificCOAs()
+	# hunt.displayGenericCOAs()
+	# hunt.displayGenericOFIs()
 
 			# hunt.addEvent(event_obj)
 	# events = hunt.responseSizeByURI()

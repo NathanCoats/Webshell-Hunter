@@ -65,10 +65,13 @@ class Event(object):
 			has_oddity = False
 			config_obj = self.getConfig()
 
-			regex = config_obj.get("blacklist")["user_agents"]
-			result = re.search(regex, self.getURI())
+			blacklist_regex = config_obj.get("blacklist")["user_agents"]
+			whitelist_regex = config_obj.get("whitelist")["user_agents"]
 
-			if not empty(result):
+			whitelist_result = re.search(whitelist_regex, self.getUserAgent())
+			blacklist_result = re.search(blacklist_regex, self.getUserAgent())
+
+			if not empty(blacklist_result) and empty(whitelist_result):
 				has_oddity = True
 
 			return has_oddity and self.wasSuccessful()
@@ -81,10 +84,14 @@ class Event(object):
 		try:
 			has_oddity = False
 			config_obj = self.getConfig()
-			regex = config_obj.get("blacklist")["uris"]
-			result = re.search(regex, self.getURI())
 
-			if not empty(result):
+			blacklist_regex = config_obj.get("blacklist")["uris"]
+			whitelist_regex = config_obj.get("whitelist")["uris"]
+
+			whitelist_result = re.search(whitelist_regex, self.getURI())
+			blacklist_result = re.search(blacklist_regex, self.getURI())
+
+			if not empty(blacklist_result) and empty(whitelist_result):
 				has_oddity = True
 
 			return has_oddity and self.wasSuccessful()
@@ -98,10 +105,13 @@ class Event(object):
 		try:
 			has_oddity = False
 			config_obj = self.getConfig()
-			regex = config_obj.get("blacklist")["parameters"]
-			result = re.search(regex, self.getParameters())
+			blacklist_regex = config_obj.get("blacklist")["parameters"]
+			whitelist_regex = config_obj.get("whitelist")["parameters"]
 
-			if not empty(result):
+			whitelist_result = re.search(whitelist_regex, self.getParameters())
+			blacklist_result = re.search(blacklist_regex, self.getParameters())
+
+			if not empty(blacklist_result) and empty(whitelist_result.group()):
 				has_oddity = True
 
 			return has_oddity and self.wasSuccessful()
@@ -114,14 +124,16 @@ class Event(object):
 		try:
 			has_oddity = False
 			config_obj = self.getConfig()
-			directory_regex = config_obj.get("blacklist")["post_directories"]
+			blacklist_regex = config_obj.get("blacklist")["post_directories"]
+			whitelist_regex = config_obj.get("whitelist")["post_directories"]
 
 			if self.getRequestMethod() != "post":
 				return False
 
-			dir_result = re.search(directory_regex, self.getURI() )
+			blacklist_result = re.search(blacklist_regex, self.getURI() )
+			whitelist_result = re.search(whitelist_regex, self.getURI() )
 
-			if not empty(dir_result):
+			if not empty(blacklist_result) and empty(whitelist_result.group()):
 				has_oddity = True
 
 			return has_oddity and self.wasSuccessful()
@@ -134,14 +146,16 @@ class Event(object):
 		try:
 			has_oddity = False
 			config_obj = self.getConfig()
-			filetype_regex = config_obj.get("blacklist")["post_filetypes"]
+			blacklist_regex = config_obj.get("blacklist")["post_filetypes"]
+			whitelist_regex = config_obj.get("whitelist")["post_filetypes"]
 
 			if self.getRequestMethod() != "post":
 				return False
 
-			file_result = re.search(filetype_regex, self.getURI())
+			whitelist_result = re.search(whitelist_regex, self.getURI())
+			blacklist_result = re.search(blacklist_regex, self.getURI())
 
-			if not empty(file_result):
+			if not empty(blacklist_result) and empty(whitelist_result.group()):
 				has_oddity = True
 
 			return has_oddity and self.wasSuccessful()
